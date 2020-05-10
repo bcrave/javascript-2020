@@ -44,7 +44,7 @@ John and Mike both play basketball in different teams. In the latest 3 games, Jo
 GOOD LUCK 😀
 */
 
-let getAverage = function (...scores) {
+const getAverage = (...scores) => {
   let sum = 0;
   for (let i = 0; i < scores.length; i++) {
     sum += scores[i];
@@ -62,3 +62,38 @@ if (johnAverage > mikeAverage) {
 } else {
   console.log("Mike wins with a points average of " + mikeAverage);
 }
+
+console.log("*** Challenge Three ***");
+
+/*
+John and his family went on a holiday and went to 3 different restaurants. The bills were $124, $48 and $268.
+To tip the waiter a fair amount, John created a simple tip calculator (as a function). He likes to tip 20% of the bill when the bill is less than $50, 15% when the bill is between $50 and $200, and 10% if the bill is more than $200.
+In the end, John would like to have 2 arrays:
+1) Containing all three tips (one for each bill)
+2) Containing all three final paid amounts (bill + tip).
+(NOTE: To calculate 20% of a value, simply multiply it with 20/100 = 0.2)
+GOOD LUCK 😀
+*/
+
+function calculateTip(...bills) {
+  let tipsAndTotals = {
+    tips: [],
+    totals: [],
+  };
+
+  for (i = 0; i < bills.length; i++) {
+    if (bills[i] < 50) {
+      tipsAndTotals.tips.push(bills[i] * 0.2);
+      tipsAndTotals.totals.push(bills[i] + bills[i] * 0.2);
+    } else if (bills[i] < 200) {
+      tipsAndTotals.tips.push(bills[i] * 0.15);
+      tipsAndTotals.totals.push(bills[i] + bills[i] * 0.15);
+    } else {
+      tipsAndTotals.tips.push(bills[i] * 0.1);
+      tipsAndTotals.totals.push(bills[i] + bills[i] * 0.1);
+    }
+  }
+  return tipsAndTotals;
+}
+
+console.log(calculateTip(124, 48, 268));
