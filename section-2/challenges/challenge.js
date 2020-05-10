@@ -157,9 +157,9 @@ GOOD LUCK 😀
 
 let johnEatsOut = {
   bills: [124, 48, 268, 180, 42],
-  tips: [],
-  totals: [],
   calcTip: function () {
+    this.tips = [];
+    this.totals = [];
     let percentage;
     for (let i = 0; i < this.bills.length; i++) {
       if (this.bills[i] < 50) {
@@ -181,9 +181,10 @@ console.log(johnEatsOut.tips, johnEatsOut.totals);
 
 let markEatsOut = {
   bills: [77, 375, 110, 45],
-  tips: [],
-  totals: [],
   calcTip: function () {
+    this.tips = [];
+    this.totals = [];
+
     let percentage;
     for (let i = 0; i < this.bills.length; i++) {
       if (this.bills[i] < 100) {
