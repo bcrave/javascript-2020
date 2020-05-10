@@ -160,17 +160,19 @@ let johnEatsOut = {
   calcTip: function () {
     this.tips = [];
     this.totals = [];
+
     let percentage;
+    let bill = this.bills[i];
     for (let i = 0; i < this.bills.length; i++) {
-      if (this.bills[i] < 50) {
+      if (bill < 50) {
         percentage = 0.2;
-      } else if (this.bills[i] < 200) {
+      } else if (bill < 200) {
         percentage = 0.15;
       } else {
         percentage = 0.1;
       }
-      this.tips.push(this.bills[i] * percentage);
-      this.totals.push(this.bills[i] + this.bills[i] * percentage);
+      this.tips.push(bill * percentage);
+      this.totals.push(bill + bill * percentage);
     }
   },
 };
