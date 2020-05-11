@@ -99,7 +99,6 @@ function init() {
   document.querySelector(".player-0-panel").classList.add("active");
 }
 
-
 /*
 CHALLNGE 6:
 Change the game to follow these rules:
@@ -107,3 +106,4 @@ Change the game to follow these rules:
 1. A player loses his ENTIRE score when he rolls two 6's in a row.  After that, it's the next player's turn. (Hint: always have the previous dice roll in a separate variable.)
 2. Add an input field to the HTML where players can set the winning score, so that they can change the predefined score of 100. (HINT: you can read that value with the ".value" property in JavaScript.)
 3. Add another dice to the game so that there are two dices.  The player loses his current score when one of them rolls 1. (HINT: You will need CSS to position the dice, so check out the CSS for the first one.)
+*/
