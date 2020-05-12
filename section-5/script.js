@@ -12,43 +12,122 @@ c) correct answer (I would use a number for this)
 7. Suppose this code would be a plugin for other programmers to use in their code. So make sure that all your code is private and doesn't interfere with the other programmers code (Hint: we learned a special technique to do exactly that).
 */
 
-var Question = function (question, answers, correct) {
-  this.question = question;
-  this.answers = answers;
-  this.correct = correct;
-};
+/*
+(function () {
+  function Question(question, answers, correct) {
+    this.question = question;
+    this.answers = answers;
+    this.correct = correct;
+  };
 
-Question.prototype = {
-  displayQuestion: function () {
-    console.log(this.question);
+  Question.prototype = {
+    displayQuestion: function () {
+      console.log(this.question);
 
-    for (var i = 0; i < this.answers.length; i++) {
-      console.log(i + 1 + ": " + this.answers[i]);
+      for (var i = 0; i < this.answers.length; i++) {
+        console.log(i + 1 + ": " + this.answers[i]);
+      }
+      return;
+    },
+    checkAnswer: function (ans) {
+      if (ans === this.correct) {
+        console.log("Correct answer!");
+      } else {
+        console.log("Wrong answer! Try again.");
+      }
+    },
+  };
+  var nationality = new Question("Are you American?", ["yes", "no"], "yes");
+  var residence = new Question(
+    "Do you you live in America?",
+    ["yes", "no"],
+    "no"
+  );
+  var questions = [nationality, residence];
+
+  randomQuestion = Math.floor(Math.random() * questions.length);
+
+  questions[randomQuestion].displayQuestion();
+
+  var answer = prompt("Please enter correct answer:");
+
+  questions[randomQuestion].checkAnswer(answer);
+})();
+*/
+
+/*
+--- Expert level ---
+8. After you display the result, display the next random question, so that the game never ends (Hint: write a function for this and call it right after displaying the result)
+9. Be careful: after Task 8, the game literally never ends. So include the option to quit the game if the user writes 'exit' instead of the answer. In this case, DON'T call the function from task 8.
+10. Track the user's score to make the game more fun! So each time an answer is correct, add 1 point to the score (Hint: I'm going to use the power of closures for this, but you don't have to, just do this with the tools you feel more comfortable at this point).
+11. Display the score in the console. Use yet another method for this.
+*/
+
+(function () {
+  function Question(question, answers, correct) {
+    this.question = question;
+    this.answers = answers;
+    this.correct = correct;
+  }
+
+  Question.prototype = {
+    displayQuestion: function () {
+      console.log(this.question);
+
+      for (var i = 0; i < this.answers.length; i++) {
+        console.log(i + 1 + ": " + this.answers[i]);
+      }
+    },
+    checkAnswer: function (ans, callback) {
+      var sc;
+      if (ans === this.correct) {
+        console.log("Correct answer!");
+        sc = callback(true);
+      } else {
+        console.log("Wrong answer! Try again.");
+        sc = callback(false);
+      }
+      this.displayScore(sc);
+    },
+    displayScore: function (score) {
+      console.log("Your current score is: " + score);
+      console.log("-------------------------------");
+    },
+  };
+
+  var nationality = new Question("Are you American?", ["yes", "no"], "yes");
+  var residence = new Question(
+    "Do you you live in America?",
+    ["yes", "no"],
+    "no"
+  );
+
+  var questions = [nationality, residence];
+
+  function score() {
+    var sc = 0;
+    return function (correct) {
+      if (correct) {
+        sc++;
+      }
+      return sc;
+    };
+  }
+
+  var keepScore = score();
+
+  function nextQuestion() {
+    randomQuestion = Math.floor(Math.random() * questions.length);
+
+    questions[randomQuestion].displayQuestion();
+
+    var answer = prompt("Please enter correct answer:");
+
+    if (answer !== "exit") {
+      questions[randomQuestion].checkAnswer(answer, keepScore);
+      nextQuestion();
     }
-    return;
-  },
-  checkAnswer: function (ans) {
-    if (ans === this.correct) {
-      console.log("Correct answer!");
-    } else {
-      console.log("Wrong answer! Try again.");
-    }
-  },
-};
+  }
 
-var nationality = new Question("Are you American?", ["yes", "no"], "yes");
-var residence = new Question(
-  "Do you you live in America?",
-  ["yes", "no"],
-  "no"
-);
-
-var questions = [nationality, residence];
-
-randomQuestion = Math.floor(Math.random() * questions.length);
-
-questions[randomQuestion].displayQuestion();
-
-var answer = prompt("Please enter correct answer:");
-
-questions[randomQuestion].checkAnswer(answer);
+  nextQuestion();
+})();
